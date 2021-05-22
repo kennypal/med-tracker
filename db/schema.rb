@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_18_013209) do
+ActiveRecord::Schema.define(version: 2021_05_22_041944) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,18 +19,18 @@ ActiveRecord::Schema.define(version: 2021_05_18_013209) do
     t.string "name"
   end
 
-  create_table "medicines_patients", id: false, force: :cascade do |t|
-    t.bigint "medicine_id", null: false
-    t.bigint "patient_id", null: false
-    t.bigint "tubes_id"
-    t.index ["tubes_id"], name: "index_medicines_patients_on_tubes_id"
-  end
-
   create_table "patients", force: :cascade do |t|
     t.string "name"
   end
 
+  create_table "tube_contents", id: false, force: :cascade do |t|
+    t.bigint "medicine_id", null: false
+    t.bigint "patient_id", null: false
+  end
+
   create_table "tubes", force: :cascade do |t|
+    t.bigint "tube_contents_id"
+    t.index ["tube_contents_id"], name: "index_tubes_on_tube_contents_id"
   end
 
 end
